@@ -70,36 +70,59 @@ enum Month
         Freq freq;
     DateTime startDate;
     DaysOfWeek daysOfWeek;
+        Month month;
     int x;
-    int[] DaysOfMonth;
 
 // Constructors
 
-Frequency(Freq Freq, DateTime startDate = DateTime.Now)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
+public Frequency(Freq Freq, DateTime startDate, int x, DaysOfWeek da)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
     {
             this.freq = Freq;
             this.startDate = startDate;
-    }
-Frequency(int x = 1)    //This constructor serts the Freq Variable of the class, and the enum DaysOfWeek. X lets the user skip the period by X amount
-    {
-            freq = Freq.Daily; 
             this.x = x;
+            this.daysOfWeek = da;
     }
-Frequency(int x = 1,  Enum DaysOfWeek)
+        public Frequency(Freq Freq, DateTime startDate, DaysOfWeek da)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
         {
-            freq = Freq.Weekly;
-            this.x = x;
+            this.freq = Freq;
+            this.startDate = startDate;
+            this.x = 1;
+            this.daysOfWeek = da;
         }
-Frequency(int X = 1, Params int DaysOfMonth)   //This constructor sets the Freq Variable of the class, and the int array DaysOfMonth. X lets the user skip the period by X amount
-    {
-            freq = Freq.Monthly;
-        }
-Frequency(int X = 1, Month Month, Position Position, DayTypes DayTypes)
-    {
-            freq = Freq.Yearly;
-    }
 
-        public List<DateTime> GetNextDate(Frequency freqObj, int ah = 10)// return x number of dates, which satisfy frequency and starts from start date(by default today)
+        public Frequency(Freq Freq, DateTime startDate, int x)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
+        {
+            this.freq = Freq;
+            this.startDate = startDate;
+            this.x = x;
+            this.daysOfWeek = startDate.DayOfWeek;
+        }
+
+        public Frequency(Freq Freq, DateTime startDate)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
+        {
+            this.freq = Freq;
+            this.startDate = startDate;
+            this.x = 1;
+            this.daysOfWeek = startDate.DayOfWeek;
+        }
+
+
+        public Frequency(Freq Freq, DateTime startDate, int x)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
+        {
+            this.freq = Freq;
+            this.startDate = DateTime.Now;
+            this.x = x;
+            this.daysOfWeek = startDate.DayOfWeek;
+        }
+        public Frequency(Freq Freq, int x)    //This constructor sets the Freq variable of the class, and the startDate  CHECK OUT CHANGES!!!
+        {
+            this.freq = Freq;
+            this.startDate = DateTime.Now;
+            this.x = x;
+            this.daysOfWeek = startDate.DayOfWeek;
+        }
+        //daysOfWeek.HasFlag()
+        public List<DateTime> GetNextDate(Frequency freqObj, DateTime finish)// return x number of dates, which satisfy frequency and starts from start date(by default today)
         {
             List<DateTime> shedule = new List<DateTime>();
 
@@ -109,7 +132,7 @@ Frequency(int X = 1, Month Month, Position Position, DayTypes DayTypes)
                     DateTime date1 = freqObj.startDate;
                     int i = 1;
                     shedule[0] = freqObj.startDate;
-                    while (i < ah)
+                    while (shedule[i] < finish)
                     {
                         double da = Convert.ToDouble(freqObj.x);
                         shedule[i] = date1.AddDays(da);
@@ -120,20 +143,22 @@ Frequency(int X = 1, Month Month, Position Position, DayTypes DayTypes)
                     DateTime date1 = freqObj.startDate;
                     int i = 0;
                     shedule[0] = freqObj.startDate;
-                    while (i < ah)
+
+                    while (shedule[i] < finish)
                     {
-                        double da = Convert.ToDouble(freqObj.x) * 7;
-                        shedule[i] = date1.AddDays(da);
-                        i++;
+                        date1.AddDays(1);
+                        if (freqObj.daysOfWeek.HasFlag(date1.DayOfWeek) == true)
+                        {
+                            shedule[i] = date1.AddDays(da);
+                            i++;
+                        }
                     }
-                    break;
-                case BiWeekly:// what is this?
                     break;
                 case Monthly:
                     DateTime date1 = freqObj.startDate;
                     int i = 0;
                     shedule[0] = freqObj.startDate;
-                    while (i < ah)
+                    while (shedule[i] < finish)
                     {
                         double da = Convert.ToDouble(freqObj.x);
                         shedule[i] = date1.AddMonths(da);
@@ -144,7 +169,7 @@ Frequency(int X = 1, Month Month, Position Position, DayTypes DayTypes)
                     DateTime date1 = freqObj.startDate;
                     int i = 0;
                     shedule[0] = freqObj.startDate;
-                    while (i < ah)
+                    while (shedule[i] < finish)
                     {
                         double da = Convert.ToDouble(freqObj.x);
                         shedule[i] = date1.AddYears(da);
