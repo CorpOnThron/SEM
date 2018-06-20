@@ -39,9 +39,11 @@ namespace ConsoleApp45
         public string Name;
         public double Amount;
         //*****CONSTRUCTORS*****
-        public Transaction(string name = "NoName",double amount = 0)//i have no idea how to pass list to constructor
+        public Transaction(string name = "NoName",double amount = 0, List<string> category)//i have no idea how to pass list to constructor properly
         {
-
+            this.Name = name;
+            this.Amount = amount;
+            Category = category;
         }
         //*****FUNCTIONS*****
         /*
