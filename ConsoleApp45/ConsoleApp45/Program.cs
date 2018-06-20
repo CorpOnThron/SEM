@@ -12,7 +12,7 @@ namespace ConsoleApp45
         public DateTime BudgetTargetDate { get; set; } // This date will work as the end date by default for all expenses
         List<IncomeDetail> IncomeSources;
         List<Transaction> ProjectedTransactions;
-        List<Wish> WishLists;
+        List<Wish> WishLists;// done?
         List<Transaction> ActualTransactions;
         
         //*****FUNCTIONS*****
@@ -38,7 +38,11 @@ namespace ConsoleApp45
         public static List<string> Category;
         public string Name;
         public double Amount;
-        
+        //*****CONSTRUCTORS*****
+        public Transaction(string name = "NoName",double amount = 0)//i have no idea how to pass list to constructor
+        {
+
+        }
         //*****FUNCTIONS*****
         /*
          get all the cateogries
@@ -75,6 +79,15 @@ namespace ConsoleApp45
         string Name;
         double Amount;
         Priority Priority;
+
+        //*****CONSTRUCTOR*****
+
+        public Wish(string name = "NoNameWhish", double amount = 0, Priority priority = Priority.None) // for all values, pretty sure we could not make wish without cost and name, so we don't need default value(BUT WHATEVER!)
+        {
+            this.Name = name;
+            this.Amount = amount;
+            this.Priority = priority;
+        }
     }
 
     class Money
