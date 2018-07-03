@@ -10,7 +10,7 @@ namespace ConsoleApp45
     {
         Money Wallet;
         public DateTime BudgetTargetDate { get; set; } // This date will work as the end date by default for all expenses
-        List<IncomeDetail> IncomeSources;
+        //List<IncomeDetail> IncomeSources;
         List<Transaction> ProjectedTransactions;
         List<Wish> WishLists;// done?
         List<Transaction> ActualTransactions;
@@ -38,13 +38,29 @@ namespace ConsoleApp45
         public static List<string> Category;
         public string Name;
         public double Amount;
-        //*****CONSTRUCTORS*****
-        public Transaction(string name = "NoName",double amount = 0, List<string> category)//i have no idea how to pass list to constructor properly
+        public DateTime StartDate;
+        public DateTime EndDate;
+        public Frequency frequency;
+        public List<DateTime> Dates = new List<DateTime>();
+        public Transaction( DateTime startdate, DateTime enddate, Frequency freq, string name = "NoName", double amount = 0, List<string> category = default(List<string>))
         {
             this.Name = name;
             this.Amount = amount;
+            this.StartDate = startdate;
+            this.EndDate = enddate;
             Category = category;
+            this.frequency = freq;
+            Dates = frequency.GetNextDates(EndDate);
         }
+
+      
+        //TEST 
+        public override string ToString()
+        {
+            Console.WriteLine(Dates[0]);
+            return null;
+        }
+
         //*****FUNCTIONS*****
         /*
          get all the cateogries
@@ -53,27 +69,27 @@ namespace ConsoleApp45
          */
     }
 
-    class ProjectedTransaction: Transaction
-    {
+    //class ProjectedTransaction: Transaction
+    //{
 
-        DateTime StartDate;
-        DateTime EndDate;
-        Priority Priority;
-        public Frequency Frequency;
-    }
+    //    DateTime StartDate;
+    //    DateTime EndDate;
+    //    Priority Priority;
+    //    public Frequency Frequency;
+    //}
 
-    class IncomeDetail: Transaction
-    {
-        DateTime StartDate;
-        DateTime EndDate;
-        public Frequency Frequency;
-    }
+    //class IncomeDetail: Transaction
+    //{
+    //    DateTime StartDate;
+    //    DateTime EndDate;
+    //    public Frequency Frequency;
+    //}
 
-    class ActualTransaction: Transaction
-    {
-        DateTime Date;
-        Priority Priority;
-    }
+    //class ActualTransaction: Transaction
+    //{
+    //    DateTime Date;
+    //    Priority Priority;
+    //}
 
 
     class Wish
