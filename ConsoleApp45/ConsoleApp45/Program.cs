@@ -57,7 +57,11 @@ namespace ConsoleApp45
         //TEST 
         public override string ToString()
         {
-            Console.WriteLine(Dates[0]);
+            foreach (object o in Dates)
+            {
+                Console.WriteLine(o);
+            }
+
             return null;
         }
 
@@ -67,6 +71,12 @@ namespace ConsoleApp45
          get category at X
          get category with the name X
          */
+
+        public static double GetSumForPlan(Transaction transTemp)
+        {
+            double sum = transTemp.Dates.Count() * transTemp.Amount;
+            return sum;
+        }
     }
 
     //class ProjectedTransaction: Transaction
