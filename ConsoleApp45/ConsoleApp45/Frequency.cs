@@ -58,15 +58,13 @@ namespace ConsoleApp45
             this.DayOfPosition = dayOfPosition;
         }
 
-        public Frequency(Repeat repeat, DateTime startDate, int EveryXOccurance, Month month, Position position, PositionDay dayOfPosition) // Yearly Overloaded
+        public Frequency(Repeat repeat, DateTime startDate, int EveryXOccurance, Month month) // Yearly Overloaded
         {
             this.Repeat = repeat;
             this.StartDate = startDate;
             this.EveryXOccurance = EveryXOccurance;
             this.FrequencyType = FrequencyType.Yearly;
             this.Month = month;
-            this.Position = position;
-            this.DayOfPosition = dayOfPosition;
         }
 
         /*****FUNCTIONS*****/
@@ -91,6 +89,40 @@ namespace ConsoleApp45
                     return DaysOfWeek.Saturday;
                 default:
                     return 0;
+            }
+        }
+
+        private Month GetMonth(DateTime Date)
+        {
+            switch (Date.Month)
+            {
+                case 1:
+                    return Month.January;
+                    
+                case 2:
+                    return Month.February;
+                case 3:
+                    return Month.March;
+                case 4:
+                    return Month.April;
+                case 5:
+                    return Month.May;
+                case 6:
+                    return Month.June;
+                case 7:
+                    return Month.July;
+                case 8:
+                    return Month.August;
+                case 9:
+                    return Month.September;
+                case 10:
+                    return Month.October;
+                case 11:
+                    return Month.November;
+                case 12:
+                    return Month.December;
+                default:
+                    return Month.January;
             }
         }
 
@@ -833,6 +865,29 @@ namespace ConsoleApp45
                         }
                         break;
                     case FrequencyType.Yearly:
+                        counter = StartDate;
+                        int count = 0;
+                        while (counter < EndDate)
+                        {
+                            if(counter.Year == EndDate.Year)
+                            {
+                                if(counter.Month <= EndDate.Month && Month.HasFlag(GetMonth(counter)))
+                                {
+                                    Result.Add(new DateTime(counter.Year, counter.Month, counter.Day));
+                                }
+                            }
+                            else if (Month.HasFlag(GetMonth(counter)))
+                            {
+                                Result.Add(new DateTime(counter.Year, counter.Month, counter.Day));
+                            }
+                            count++;
+                            if(count == 12)
+                            {
+                                count = 0;
+                                counter.AddYears(EveryXOccurance - 1);
+                            }
+                            counter.AddMonths(1);
+                        }
                         break;
                         
                 }
