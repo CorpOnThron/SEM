@@ -88,6 +88,7 @@ namespace ConsoleApp45
                 case System.DayOfWeek.Saturday:
                     return DaysOfWeek.Saturday;
                 default:
+                    Console.WriteLine("Error: GetDayOfWeek() - Frequency class");
                     return 0;
             }
         }
@@ -98,7 +99,6 @@ namespace ConsoleApp45
             {
                 case 1:
                     return Month.January;
-                    
                 case 2:
                     return Month.February;
                 case 3:
@@ -119,10 +119,8 @@ namespace ConsoleApp45
                     return Month.October;
                 case 11:
                     return Month.November;
-                case 12:
-                    return Month.December;
                 default:
-                    return Month.January;
+                    return Month.December;
             }
         }
 
@@ -215,7 +213,7 @@ namespace ConsoleApp45
                                 }
                                 EndDaysAdded = true;
                             }
-                            SameDate = counter.Day == LastMonth.Day ? false : true;
+                            SameDate = counter.Day == LastMonth.Day ? true : false;
 
                             if(MonthChanged && SameDate)
                             {
@@ -239,7 +237,7 @@ namespace ConsoleApp45
                                 {
                                     case PositionDay.Day:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             Result.Add(new DateTime(counter.Year, counter.Month, 1));
                                             counter = counter.AddMonths(EveryXOccurance);
@@ -247,93 +245,163 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Tuesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
+                                            {
                                                 if (counter.Day <= 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                 }
@@ -351,93 +419,164 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
-                                                if (counter.Day <= 14 && counter.Day >7)
-                                                {
-                                                    Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
-                                                }
-                                            counter.AddDays(1);
-                                        }
-                                        break;
-                                    case PositionDay.Tuesday:
-                                        counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
-                                        {
-                                            if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
+                                        }
+                                        break;
+
+                                    case PositionDay.Tuesday:
+                                        counter = StartDate;
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
+                                        {
+                                            if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
+                                                if (counter.Day <= 14 && counter.Day > 7)
+                                                {
+                                                    Result.Add(counter);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
+                                                }
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
+                                            {
                                                 if (counter.Day <= 14 && counter.Day > 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
 
@@ -456,93 +595,163 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Tuesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
+                                            {
                                                 if (counter.Day <= 21 && counter.Day > 14)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                 }
@@ -560,93 +769,163 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Tuesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
+                                            {
                                                 if (counter.Day <= 28 && counter.Day > 21)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
 
@@ -665,93 +944,163 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Tuesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
+                                            {
                                                 if (counter.Day <= 31 && counter.Day > 28)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
 
@@ -771,93 +1120,163 @@ namespace ConsoleApp45
                                         break;
                                     case PositionDay.Monday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Monday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Tuesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Tuesday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Wednesday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Wednesday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Thursday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Thursday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Friday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Friday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Saturday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Saturday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                     case PositionDay.Sunday:
                                         counter = StartDate;
-                                        while (counter.ToOADate() < EndDate.ToOADate())
+                                        while (DateTime.Compare(counter, EndDate) <= 0)
                                         {
                                             if (GetDayOfWeek(counter) == DaysOfWeek.Sunday)
-                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > (DateTime.DaysInMonth(counter.Year, counter.Month) - 7))
+                                            {
+                                                if (counter.Day <= DateTime.DaysInMonth(counter.Year, counter.Month) && counter.Day > DateTime.DaysInMonth(counter.Year, counter.Month) - 7)
                                                 {
                                                     Result.Add(counter);
-                                                    counter = new DateTime(counter.Year, counter.Month + 1, 1);
+                                                    counter = counter.AddMonths(EveryXOccurance);
+                                                    counter = new DateTime(counter.Year, counter.Month, 1);
                                                 }
-                                            counter.AddDays(1);
+                                                else
+                                                {
+                                                    counter = counter.AddDays(1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                counter = counter.AddDays(1);
+                                            }
                                         }
                                         break;
                                 }
@@ -866,27 +1285,23 @@ namespace ConsoleApp45
                         break;
                     case FrequencyType.Yearly:
                         counter = StartDate;
-                        int count = 0;
-                        while (counter < EndDate)
+                        int LastYear = counter.Year;
+                        bool YearChanged = false;
+                        while (DateTime.Compare(counter, EndDate) <= 0)
                         {
-                            if(counter.Year == EndDate.Year)
-                            {
-                                if(counter.Month <= EndDate.Month && Month.HasFlag(GetMonth(counter)))
-                                {
-                                    Result.Add(new DateTime(counter.Year, counter.Month, counter.Day));
-                                }
-                            }
-                            else if (Month.HasFlag(GetMonth(counter)))
+                            if (Month.HasFlag(GetMonth(counter)))
                             {
                                 Result.Add(new DateTime(counter.Year, counter.Month, counter.Day));
                             }
-                            count++;
-                            if(count == 12)
+                            counter = counter.AddMonths(1);
+                            YearChanged = counter.Year == LastYear ? false : true;
+                            if(YearChanged)
                             {
-                                count = 0;
-                                counter.AddYears(EveryXOccurance - 1);
+                                counter = counter.AddYears(EveryXOccurance-1);
+                                LastYear = counter.Year;
+                                counter = new DateTime(counter.Year, counter.Month, counter.Day);
+                                YearChanged = false;
                             }
-                            counter.AddMonths(1);
                         }
                         break;
                         
@@ -936,18 +1351,18 @@ namespace ConsoleApp45
     [Flags]
     enum Month
     {
-        January,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
+        January=1,
+        February=2,
+        March=4,
+        April=8,
+        May=16,
+        June=32,
+        July=64,
+        August=128,
+        September=256,
+        October=512,
+        November=1024,
+        December=2048
     }
 
     [Flags]

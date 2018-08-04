@@ -10,21 +10,62 @@ namespace ConsoleApp45
     {
         public static void Main()
         {
-            Frequency freq = new Frequency(Repeat.Daily, DateTime.Now,1);
-            List<string> cat = new List<string>();
-            cat.Add("Noname");
-            Transaction trans = new Transaction(DateTime.Now,DateTime.Now.AddDays(1), freq, "test1",25,cat);
-             
-            Console.WriteLine(trans);
-            Console.WriteLine(Transaction.GetSumForPlan(trans));
+            //Frequency fq1 = new Frequency(Repeat.Daily, DateTime.Now, 2); // every 2 days from start date
+            //Frequency fq2 = new Frequency(Repeat.Weekly, DateTime.Now, 2); // every 2 weeks from start date
+            //Frequency fq3 = new Frequency(Repeat.Monthly, DateTime.Now, 2); // every 2 months from start date
+            //Frequency fq4 = new Frequency(Repeat.Yearly, new DateTime(2016, 2, 29), 2); // every 2 years from start date
 
-            //Frequency Every2DaysAWeek = new Frequency(Repeat.Monthly, DateTime.Now.AddMonths(-1), 1, Position.First, PositionDay.Monday);
-            // List<DateTime> Result = Every2DaysAWeek.GetNextDates(DateTime.Now.AddDays(60));
-            // Console.WriteLine($"For every 2 days a week starting from {DateTime.Now.AddDays(16)} and ending on (and including) {DateTime.Now.AddDays(60)} the dates are");
-            //foreach (DateTime x in Result)
-            //{
-            //    Console.WriteLine(x.ToString());
-            //}
+            //Frequency fq5 = new Frequency(Repeat.Weekly, DateTime.Now, 2, DaysOfWeek.Monday); // every second Monday from start date
+
+            //Frequency fq9 = new Frequency(Repeat.Monthly, DateTime.Now , 2, Position.Last, PositionDay.Wednesday); // every last wednesday from start date
+            //Frequency fq10 = new Frequency(Repeat.Monthly, new DateTime(2018,08,2) , 2, 1,15,31); // every 1st, 15th, 31st of the month from start date
+
+            //Frequency fq11 = new Frequency(Repeat.Yearly, new DateTime(2016,2,29) , 2 , Month.January | Month.February | Month.October);
+
+            //List<DateTime> result1 = fq1.GetNextDates(DateTime.Now.AddDays(10));
+            //List<DateTime> result2 = fq2.GetNextDates(DateTime.Now.AddDays(10*7));
+            //List<DateTime> result3 = fq3.GetNextDates(DateTime.Now.AddDays(10*30));
+            //List<DateTime> result4 = fq4.GetNextDates(DateTime.Now.AddDays(10*365));
+
+            //List<DateTime> result5 = fq5.GetNextDates(DateTime.Now.AddDays(10*7));
+
+            //List<DateTime> result9 = fq9.GetNextDates(DateTime.Now.AddDays(10*30));
+            //List<DateTime> result10 = fq10.GetNextDates(DateTime.Now.AddDays(10*30));
+
+            //List<DateTime> result11 = fq11.GetNextDates(DateTime.Now.AddDays(10*365));
+
+            //foreach (DateTime dt in result1)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 days from start date");
+
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result2)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 weeks from start date");
+
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result3)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 months from start date");
+
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result4)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 years from start date");
+
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result5)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 weeks from start date on mondays");
+
+            //Console.WriteLine("\n\n(if starts on 2nd august, it will display first three dates that is.. 15th and 31st of august and 1st of september)\n");
+            //foreach (DateTime dt in result10)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every 2 months on 1st 15th and 31st starting from start date");
+
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result9)
+             
+            //Console.WriteLine("\n\n");
+            //foreach (DateTime dt in result11)
+            //    Console.WriteLine($"{dt.ToLongDateString()} : every Jan, feb, oct every 2 years");
+
+            
+
         }
     }
 }
