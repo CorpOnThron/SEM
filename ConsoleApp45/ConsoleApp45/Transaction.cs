@@ -24,14 +24,47 @@ namespace ConsoleApp45
         }
     }
 
-    class ProjectedTransaction : Transaction
+    public class ProjectedTransaction : Transaction
     {
         string Category;
+        Priority Priority;
 
-        ProjectedTransaction(string name, string category, float amount, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        ProjectedTransaction(string name, string category, float amount, Priority priority, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
         {
-            
+            this.Category = category;
+            Priority = priority;
         }
 
+    }
+
+    public class ProjectedTransaction : Transaction
+    {
+        string Category;
+        Priority Priority;
+
+        ProjectedTransaction(string name, string category, float amount, Priority priority, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        {
+            this.Category = category;
+            Priority = priority;
+        }
+
+    }
+
+    public class Income : Transaction
+    {
+
+        ProjectedTransaction(string name, float amount, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        {
+            this.Category = category;
+        }
+
+    }
+
+    enum Priority
+    {
+        None,
+        Low,
+        Medium,
+        High
     }
 }
