@@ -8,59 +8,76 @@ namespace ConsoleApp45
 {
     public class Transaction
     {
-        string Name;
-        float Amount;
-        DateTime StartDate;
-        DateTime EndDate;
-        Frequency Frequency;
+        public string Name;
+        public float Amount;
+        public DateTime StartDate; 
+        // for ProjectedTransactions and Income it works as startDate. However, for ActualTransaction it works as just a Date
 
-        Transaction(string name, float amount, Frequency frequency, DateTime startDate, DateTime endDate)
+        public Transaction(string name, float amount, DateTime startDate)
         {
             Name = name;
             Amount = amount;
-            Frequency = frequency;
             StartDate = startDate;
+        }
+    }
+
+    public class ProjectedTransaction : Transaction
+    {
+        public string Category;
+        public Priority Priority;
+        public Frequency Frequency;
+        public DateTime EndDate;
+
+        public ProjectedTransaction(string name, string category, float amount, Priority priority, DateTime startDate, DateTime endDate):base(name, amount, startDate)
+        {
+            Category = category;
+            Priority = priority;
             EndDate = endDate;
         }
+
+        public void SetFrequency(Frequency frequency)
+        {
+            this.Frequency = frequency;
+        }
+
     }
 
-    public class ProjectedTransaction : Transaction
+    public class ActualTransaction : Transaction
     {
         string Category;
         Priority Priority;
+        DateTime Date;
 
-        ProjectedTransaction(string name, string category, float amount, Priority priority, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        public ActualTransaction(string name, string category, float amount, Priority priority, DateTime date): base(name, amount, date)
         {
             this.Category = category;
             Priority = priority;
         }
 
-    }
-
-    public class ProjectedTransaction : Transaction
-    {
-        string Category;
-        Priority Priority;
-
-        ProjectedTransaction(string name, string category, float amount, Priority priority, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        public ActualTransaction(ProjectedTransaction projectedTransaction) : base(projectedTransaction.Name, projectedTransaction.Amount, projectedTransaction.StartDate)
         {
-            this.Category = category;
-            Priority = priority;
+            this.Category = projectedTransaction.Category;
+            this.Priority = projectedTransaction.Priority;
         }
 
     }
 
     public class Income : Transaction
     {
-
-        ProjectedTransaction(string name, float amount, Frequency frequency, DateTime startDate, DateTime endDate): base(name, amount, frequency, startDate, endDate)
+        DateTime EndDate;
+        Frequency Frequency;
+        public Income(string name, float amount, DateTime startDate, DateTime endDate): base(name, amount, startDate)
         {
-            this.Category = category;
+            EndDate = endDate;
         }
 
+        public void SetFrequency(Frequency frequency)
+        {
+            this.Frequency = frequency;
+        }
     }
 
-    enum Priority
+    public enum Priority
     {
         None,
         Low,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp45
 {
-    class Frequency
+    public class Frequency
     {
         
         Repeat Repeat;
@@ -1317,7 +1317,7 @@ namespace ConsoleApp45
         }
     }
     
-    enum FrequencyType
+    public enum FrequencyType
     {
         Standard,
         Weekly,
@@ -1326,7 +1326,7 @@ namespace ConsoleApp45
         Yearly
     }
 
-    enum Position
+    public enum Position
     {
         First,
         Second,
@@ -1336,7 +1336,7 @@ namespace ConsoleApp45
         Last
     }
 
-    enum PositionDay
+    public enum PositionDay
     {
         Day,
         Sunday,
@@ -1349,7 +1349,7 @@ namespace ConsoleApp45
     }
 
     [Flags]
-    enum Month
+    public enum Month
     {
         January=1,
         February=2,
@@ -1366,7 +1366,7 @@ namespace ConsoleApp45
     }
 
     [Flags]
-    enum DaysOfWeek
+    public enum DaysOfWeek
     {
         Sunday=1,
         Monday=2,
@@ -1377,7 +1377,7 @@ namespace ConsoleApp45
         Saturday=64
     }
 
-    enum Repeat
+    public enum Repeat
     {
         Daily,
         Weekly,

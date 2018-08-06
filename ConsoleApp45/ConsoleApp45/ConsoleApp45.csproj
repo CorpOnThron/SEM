@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Frequency.cs" />
