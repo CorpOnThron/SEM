@@ -72,6 +72,25 @@ namespace ConsoleApp45
             ListData.Sort((x, y) => x.Date.CompareTo(y.Date));
         }
 
+        public void CalculateDaysLeft()
+        {
+            float DupeCurrent = CurrentBalance;
+            bool hitsMinBalance = false;
+            foreach(Data obj in ListData)
+            {
+                DupeCurrent -= obj.Amount;
+                if(DupeCurrent <= MinimumBalance)
+                {
+                    Console.WriteLine($"{obj.Date} is the date when user hits minimum balance: {(obj.Date - DateTime.Now).TotalDays}");
+                    hitsMinBalance = true;
+                    break;
+                }
+            }
+            if (!hitsMinBalance)
+            {
+                Console.WriteLine($"User never hits minimum balance, he is a rich bitch!");
+            }
+        }
        
     }
 }

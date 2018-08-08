@@ -29,8 +29,10 @@ namespace ConsoleApp45
 
             OlekDev.AddData();
 
-            foreach (Data obj in OlekDev.ListData)
-                Console.WriteLine($"{obj.Date.ToLongDateString()}-{obj.Amount}");
+            //foreach (Data obj in OlekDev.ListData)
+            //    Console.WriteLine($"{obj.Date.ToLongDateString()}-{obj.Amount}");
+
+            OlekDev.CalculateDaysLeft();
 
             //Frequency fq3 = new Frequency(Repeat.Monthly, DateTime.Now, 2); // every 2 months from start date
             //Frequency fq4 = new Frequency(Repeat.Yearly, new DateTime(2016, 2, 29), 2); // every 2 years from start date
