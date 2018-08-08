@@ -10,19 +10,23 @@ namespace ConsoleApp45
     {
         float MinimumBalance;
         float CurrentBalance;
-        DateTime BudgetEndDate;
+        public DateTime BudgetEndDate;
         List<ProjectedTransaction> ProjectedTransaction;
         List<ActualTransaction> ActualTransaction;
         List<Income> Income;
         Data Calculation;
-        List<string> Category;
+        public List<string> Category;
         List<Frequency> Frequencies;
+        public List<Data> ListData;
 
         public User(float minimumBalance, float currentBalance, DateTime budgetEndDate)
         {
             MinimumBalance = minimumBalance;
             CurrentBalance = currentBalance;
             BudgetEndDate = budgetEndDate;
+            ListData = new List<Data>();
+            Category = new List<string>();
+            ProjectedTransaction = new List<ProjectedTransaction>();
         }
 
         public void AddIncome(string name, float amount, Frequency frequency, DateTime startDate, DateTime endDate)
@@ -30,9 +34,9 @@ namespace ConsoleApp45
             Income.Add(new Income(name, amount, startDate, endDate));
         }
 
-        public void AddProjectedTransaction(string name, string category, float amount, Priority priority, Frequency frequency, DateTime startDate, DateTime endDate)
+        public void AddProjectedTransaction(ProjectedTransaction projectedTransaction)
         {
-            ProjectedTransaction.Add(new ProjectedTransaction(name, category, amount, priority, startDate, endDate));
+            ProjectedTransaction.Add(projectedTransaction);
         }
 
         public void AddActualTransaction(ProjectedTransaction projectedTransaction)
@@ -55,5 +59,19 @@ namespace ConsoleApp45
         {
             BudgetEndDate = newDate;
         }
+
+        public void AddData() {
+            foreach (ProjectedTransaction obj in ProjectedTransaction) {
+                foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    Data TempData = new Data(obj2, obj.Amount);
+                    ListData.Add(TempData);
+                }
+            }
+            ListData.OrderBy(x => x.Date).ToList();
+
+        }
+
+       
     }
 }
