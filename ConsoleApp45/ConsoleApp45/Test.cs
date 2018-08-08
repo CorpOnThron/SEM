@@ -24,8 +24,8 @@ namespace ConsoleApp45
             prt1.SetFrequency(fq1);
             prt2.SetFrequency(fq2);
 
-            OlekDev.AddProjectedTransaction(prt1);
             OlekDev.AddProjectedTransaction(prt2);
+            OlekDev.AddProjectedTransaction(prt1);
 
             OlekDev.AddData();
 

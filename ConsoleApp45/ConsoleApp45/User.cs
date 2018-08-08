@@ -68,8 +68,8 @@ namespace ConsoleApp45
                     ListData.Add(TempData);
                 }
             }
-            ListData.OrderBy(x => x.Date).ToList();
-
+            //ListData.OrderBy(x => x.Date).ToList();
+            ListData.Sort((x, y) => x.Date.CompareTo(y.Date));
         }
 
        
