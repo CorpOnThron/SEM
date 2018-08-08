@@ -135,6 +135,9 @@ namespace ConsoleApp45
                         DateTime counter = StartDate;
                         switch (Repeat)
                         {
+                            case Repeat.Once:
+                                Result.Add(counter);
+                                break;
                             case Repeat.Daily:
                                 while (counter.ToOADate() < EndDate.ToOADate())
                                 { 
@@ -1379,6 +1382,7 @@ namespace ConsoleApp45
 
     public enum Repeat
     {
+        Once,
         Daily,
         Weekly,
         Monthly,
