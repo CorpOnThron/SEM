@@ -119,5 +119,32 @@ namespace ConsoleApp45
         {
             Category.Add(category);
         }
+
+        public List<ProjectedTransaction> GetTransactionsOn(DateTime date)
+        {
+            List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
+
+            foreach(ProjectedTransaction obj in ProjectedTransaction)
+            {
+                foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if(DateTime.Compare(obj2, date) == 0)
+                    {
+                        Result.Add(obj);
+                    }
+                }
+            }
+            foreach (Income obj in Income)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(obj2, date) == 0)
+                    {
+                        Result.Add(obj.ToProjectedTransaction());
+                    }
+                }
+            }
+            return Result;
+        }
     }
 }

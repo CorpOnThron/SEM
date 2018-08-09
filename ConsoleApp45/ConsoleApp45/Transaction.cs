@@ -35,6 +35,7 @@ namespace ConsoleApp45
             EndDate = endDate;
         }
 
+
         public void SetFrequency(Frequency frequency)
         {
             this.Frequency = frequency;
@@ -87,6 +88,11 @@ namespace ConsoleApp45
         public void SetFrequency(Frequency frequency)
         {
             this.Frequency = frequency;
+        }
+
+        public ProjectedTransaction ToProjectedTransaction()
+        {
+            return new ProjectedTransaction(Name, "Income", Amount, Priority.High, StartDate, EndDate);
         }
     }
 
