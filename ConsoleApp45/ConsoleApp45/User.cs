@@ -14,7 +14,6 @@ namespace ConsoleApp45
         List<ProjectedTransaction> ProjectedTransaction;
         List<ActualTransaction> ActualTransaction;
         List<Income> Income;
-        Data Calculation;
         public List<string> Category;
         List<Frequency> Frequencies;
         public List<Data> ListData;
@@ -31,6 +30,19 @@ namespace ConsoleApp45
             Income = new List<Income>();
             ActualTransaction = new List<ActualTransaction>();
             WishList = new List<WishItem>();
+        }
+
+        public float GetTotalOn(DateTime date)
+        {
+            float temp = 0;
+            foreach(Data obj in ListData)
+            {
+                if(obj.Date == date)
+                {
+                    temp += obj.Amount;
+                }
+            }
+            return temp;
         }
 
         public void AddWishItem(WishItem wish) {
@@ -64,7 +76,7 @@ namespace ConsoleApp45
             float CurrentBalanceDupe = CurrentBalance;
             foreach(Data obj in ListData)
             {
-                if(DateTime.Compare(obj.Date, date) < 0)
+                if(obj.Date < date)
                 {
                     CurrentBalanceDupe -= obj.Amount;
                 }
@@ -158,12 +170,17 @@ namespace ConsoleApp45
         public float CalculateDaysToEscape()
         {
             float DupeCurrent = CurrentBalance;
+            DateTime LastDate = DateTime.Now ;
             bool hitsMinBalance = false;
             DateTime HitDateTemp = DateTime.Now;
             foreach (Data obj in ListData)
             {
-                
-                    DupeCurrent -= obj.Amount;
+                    if(LastDate != obj.Date)
+                    {
+                    DupeCurrent -= GetTotalOn(obj.Date);
+                    LastDate = obj.Date;
+                    }
+                    
                     if (DupeCurrent <= MinimumBalance)
                     {
                         HitDateTemp = obj.Date;
