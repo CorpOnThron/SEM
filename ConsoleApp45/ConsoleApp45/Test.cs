@@ -13,7 +13,7 @@ namespace ConsoleApp45
             Frequency fq1 = new Frequency(Repeat.Daily, DateTime.Now, 2); // every 2 days from start date
             Frequency fq2 = new Frequency(Repeat.Weekly, DateTime.Now, 2); // every 2 weeks from start date
 
-            User OlekDev = new User(9000, 10000, DateTime.Now.AddYears(2));
+            User OlekDev = new User(50, 100, DateTime.Now.AddYears(2));
             OlekDev.Category.Add("TTC");
             OlekDev.Category.Add("Rent");
 
@@ -31,22 +31,28 @@ namespace ConsoleApp45
 
             OlekDev.AddProjectedTransaction(prt2);
             OlekDev.AddProjectedTransaction(prt1);
-            OlekDev.AddIncome(inc1);
+            //OlekDev.AddIncome(inc1);
 
             OlekDev.AddActualTransaction(prt1);
             OlekDev.AddActualTransaction(prt2);
 
-            OlekDev.AddActualTransaction(inc1);
+            //OlekDev.AddActualTransaction(inc1);
 
 
             OlekDev.AddData();
 
-            //foreach (Data obj in OlekDev.ListData)
-            //    Console.WriteLine($"{obj.Date.ToLongDateString()}-{obj.Amount}");
 
-            OlekDev.CalculateDaysLeft();
+            foreach (Data obj in OlekDev.ListData)
+                Console.WriteLine($"{obj.Date.ToLongDateString()}-{obj.Amount}");
 
-            OlekDev.DisplayActualTransactions();
+            //OlekDev.CalculateDaysLeft();
+
+
+            float tempShit = OlekDev.CalculateDaysToEscape();
+            Console.WriteLine($"Min balance will be {tempShit}");
+            
+            
+            //OlekDev.DisplayActualTransactions();
 
             //Frequency fq3 = new Frequency(Repeat.Monthly, DateTime.Now, 2); // every 2 months from start date
             //Frequency fq4 = new Frequency(Repeat.Yearly, new DateTime(2016, 2, 29), 2); // every 2 years from start date

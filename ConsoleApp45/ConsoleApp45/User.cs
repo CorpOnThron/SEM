@@ -120,7 +120,53 @@ namespace ConsoleApp45
                 Console.WriteLine($"User never hits minimum balance, he is a rich bitch!");
             }
         }
-       
+
+        public float CalculateDaysToEscape()
+        {
+            float DupeCurrent = CurrentBalance;
+            bool hitsMinBalance = false;
+            DateTime HitDateTemp = DateTime.Now;
+            foreach (Data obj in ListData)
+            {
+                
+                    DupeCurrent -= obj.Amount;
+                    if (DupeCurrent <= MinimumBalance)
+                    {
+                        HitDateTemp = obj.Date;
+                        hitsMinBalance = true;
+                        break;
+                    }
+                
+            }
+            if (!hitsMinBalance)
+            {
+                Console.WriteLine($"User never hits minimum balance, he is a rich bitch!");
+                return 0;
+            }
+            else
+            {
+                float DupeCurrentTemp = DupeCurrent;
+
+                foreach (Data obj in ListData)
+                {
+                    if (obj.Date > HitDateTemp && DupeCurrent <= MinimumBalance)
+                    {
+                        DupeCurrent -= obj.Amount;
+                        if (DupeCurrent < DupeCurrentTemp)
+                        {
+                            DupeCurrentTemp = DupeCurrent;
+                        }
+                    }
+                    else if (DupeCurrent > MinimumBalance)
+                    {
+                        break;
+                    }
+                }
+                return DupeCurrentTemp;
+            }
+        }
+
+
         public void AddCategory(string category)
         {
             Category.Add(category);
