@@ -52,6 +52,27 @@ namespace ConsoleApp45
             ActualTransaction.Add(new ActualTransaction(projectedTransaction, DateTime.Now));
         }
 
+        public void AddActualTransaction(ProjectedTransaction projectedTransaction, float amount)
+        {
+            ProjectedTransaction tempPT = projectedTransaction;
+            tempPT.Amount = amount;
+            ActualTransaction.Add(new ActualTransaction(tempPT, DateTime.Now));
+        }
+
+        public float GetBalanceOnDate(DateTime date)
+        {
+            float CurrentBalanceDupe = CurrentBalance;
+            foreach(Data obj in ListData)
+            {
+                if(DateTime.Compare(obj.Date, date) < 0)
+                {
+                    CurrentBalanceDupe -= obj.Amount;
+                }
+            }
+
+            return CurrentBalanceDupe;
+        }
+
         public void AddActualTransaction(Income income)
         {
             ActualTransaction.Add(new ActualTransaction(income,DateTime.Now));
@@ -92,6 +113,18 @@ namespace ConsoleApp45
             ListData.Sort((x, y) => x.Date.CompareTo(y.Date));
         }
 
+        public DateTime GetNextPayDay()
+        {
+            foreach(Data obj in ListData)
+            {
+                if(obj.Amount < 0)
+                {
+                    return obj.Date;
+                }
+            }
+            return new DateTime();
+        }
+
         public List<ActualTransaction> DisplayActualTransactions()
         {
             foreach(ActualTransaction obj in ActualTransaction)
@@ -114,6 +147,7 @@ namespace ConsoleApp45
                     hitsMinBalance = true;
                     break;
                 }
+                
             }
             if (!hitsMinBalance)
             {
@@ -135,6 +169,87 @@ namespace ConsoleApp45
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
                     if(DateTime.Compare(obj2, date) == 0)
+                    {
+                        Result.Add(obj);
+                    }
+                }
+            }
+            foreach (Income obj in Income)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(obj2, date) == 0)
+                    {
+                        Result.Add(obj.ToProjectedTransaction());
+                    }
+                }
+            }
+            return Result;
+        }
+
+        public List<ProjectedTransaction> GetTransactionsOn(DateTime date, int RangeOfDays)
+        {
+            List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
+
+            foreach (ProjectedTransaction obj in ProjectedTransaction)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(date, obj2) >= 0 && DateTime.Compare(date, obj2.AddDays(RangeOfDays)) < 0)
+                    {
+                        Result.Add(obj);
+                    }
+                }
+            }
+            foreach (Income obj in Income)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(date, obj2) >= 0 && DateTime.Compare(date, obj2.AddDays(RangeOfDays)) < 0)
+                    {
+                        Result.Add(obj.ToProjectedTransaction());
+                    }
+                }
+            }
+            return Result;
+        }
+
+        public List<ProjectedTransaction> GetTransactionsOn(DateTime date, int RangeOfDays, Priority priority)
+        {
+            List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
+
+            foreach (ProjectedTransaction obj in ProjectedTransaction)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(date, obj2) >= 0 && DateTime.Compare(date, obj2.AddDays(RangeOfDays)) < 0 && obj.Priority == priority)
+                    {
+                        Result.Add(obj);
+                    }
+                }
+            }
+            foreach (Income obj in Income)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(date, obj2) >= 0 && DateTime.Compare(date, obj2.AddDays(RangeOfDays)) < 0)
+                    {
+                        Result.Add(obj.ToProjectedTransaction());
+                    }
+                }
+            }
+            return Result;
+        }
+
+        public List<ProjectedTransaction> GetTransactionsOn(DateTime date, Priority priority)
+        {
+            List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
+
+            foreach (ProjectedTransaction obj in ProjectedTransaction)
+            {
+                foreach (DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    if (DateTime.Compare(obj2, date) == 0 && priority == obj.Priority)
                     {
                         Result.Add(obj);
                     }
