@@ -18,6 +18,7 @@ namespace ConsoleApp45
         public List<string> Category;
         List<Frequency> Frequencies;
         public List<Data> ListData;
+        public List<WishItem> WishList;
 
         public User(float minimumBalance, float currentBalance, DateTime budgetEndDate)
         {
@@ -29,6 +30,11 @@ namespace ConsoleApp45
             ProjectedTransaction = new List<ProjectedTransaction>();
             Income = new List<Income>();
             ActualTransaction = new List<ActualTransaction>();
+            WishList = new List<WishItem>();
+        }
+
+        public void AddWishItem(WishItem wish) {
+            WishList.Add(wish);
         }
 
         public void AddIncome(Income income)
