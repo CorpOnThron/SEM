@@ -27,11 +27,13 @@ namespace ConsoleApp45
             ListData = new List<Data>();
             Category = new List<string>();
             ProjectedTransaction = new List<ProjectedTransaction>();
+            Income = new List<Income>();
+            ActualTransaction = new List<ActualTransaction>();
         }
 
-        public void AddIncome(string name, float amount, Frequency frequency, DateTime startDate, DateTime endDate)
+        public void AddIncome(Income income)
         {
-            Income.Add(new Income(name, amount, startDate, endDate));
+            Income.Add(income);
         }
 
         public void AddProjectedTransaction(ProjectedTransaction projectedTransaction)
@@ -41,9 +43,13 @@ namespace ConsoleApp45
 
         public void AddActualTransaction(ProjectedTransaction projectedTransaction)
         {
-            ActualTransaction.Add(new ActualTransaction(projectedTransaction));
+            ActualTransaction.Add(new ActualTransaction(projectedTransaction, DateTime.Now));
         }
-        
+
+        public void AddActualTransaction(Income income)
+        {
+            ActualTransaction.Add(new ActualTransaction(income,DateTime.Now));
+        }
 
         public void UpdateMinimumBalance(float newBalance)
         {
@@ -68,8 +74,25 @@ namespace ConsoleApp45
                     ListData.Add(TempData);
                 }
             }
+            foreach (Income obj in Income)
+            {
+                foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
+                {
+                    Data TempData = new Data(obj2, -(obj.Amount));
+                    ListData.Add(TempData);
+                }
+            }
             //ListData.OrderBy(x => x.Date).ToList();
             ListData.Sort((x, y) => x.Date.CompareTo(y.Date));
+        }
+
+        public List<ActualTransaction> DisplayActualTransactions()
+        {
+            foreach(ActualTransaction obj in ActualTransaction)
+            {
+                Console.WriteLine(obj);
+            }
+            return ActualTransaction;
         }
 
         public void CalculateDaysLeft()
@@ -81,7 +104,7 @@ namespace ConsoleApp45
                 DupeCurrent -= obj.Amount;
                 if(DupeCurrent <= MinimumBalance)
                 {
-                    Console.WriteLine($"{obj.Date} is the date when user hits minimum balance: {(obj.Date - DateTime.Now).TotalDays}");
+                    Console.WriteLine($"{obj.Date} is the date when user hits minimum balance: {Math.Round((obj.Date - DateTime.Now).TotalDays)} Days left");
                     hitsMinBalance = true;
                     break;
                 }
@@ -92,5 +115,9 @@ namespace ConsoleApp45
             }
         }
        
+        public void AddCategory(string category)
+        {
+            Category.Add(category);
+        }
     }
 }

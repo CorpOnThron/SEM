@@ -54,18 +54,31 @@ namespace ConsoleApp45
             Priority = priority;
         }
 
-        public ActualTransaction(ProjectedTransaction projectedTransaction) : base(projectedTransaction.Name, projectedTransaction.Amount, projectedTransaction.StartDate)
+        public ActualTransaction(ProjectedTransaction projectedTransaction, DateTime date) : base(projectedTransaction.Name, projectedTransaction.Amount, date)
         {
             this.Category = projectedTransaction.Category;
             this.Priority = projectedTransaction.Priority;
         }
 
+        public ActualTransaction(Income income, DateTime date) : base(income.Name, -(income.Amount), date)
+        {
+            this.Category = "Income";
+            this.Priority = Priority.High;
+        }
+
+
+
+        public override string ToString()
+        {
+            string action = Amount > 0 ? "Withdrawn" : "Deposited";
+            return $"{Name}\t\t({Category})\t\t{Date.ToShortDateString()}\t\t${Amount}\t\t{action}";
+        }
     }
 
     public class Income : Transaction
     {
-        DateTime EndDate;
-        Frequency Frequency;
+        public DateTime EndDate;
+        public Frequency Frequency;
         public Income(string name, float amount, DateTime startDate, DateTime endDate): base(name, amount, startDate)
         {
             EndDate = endDate;
