@@ -64,7 +64,7 @@ namespace ConsoleApp45
             float CurrentBalanceDupe = CurrentBalance;
             foreach(Data obj in ListData)
             {
-                if(DateTime.Compare(obj.Date, date) < 0)
+                if(obj.Date <= date)
                 {
                     CurrentBalanceDupe -= obj.Amount;
                 }

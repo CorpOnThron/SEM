@@ -51,7 +51,8 @@ namespace ConsoleApp45
 
             float tempShit = OlekDev.CalculateDaysToEscape();
             Console.WriteLine($"Min balance will be {tempShit}");
-            
+
+            Console.WriteLine($"ss" + OlekDev.GetBalanceOnDate(date));
             
             //OlekDev.DisplayActualTransactions();
 
