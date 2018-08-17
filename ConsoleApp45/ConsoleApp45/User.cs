@@ -8,7 +8,7 @@ namespace ConsoleApp45
 {
     class User
     {
-        float MinimumBalance;
+        public float MinimumBalance;
         float CurrentBalance;
         public DateTime BudgetEndDate;
         List<ProjectedTransaction> ProjectedTransaction;
@@ -37,7 +37,7 @@ namespace ConsoleApp45
             float temp = 0;
             foreach(Data obj in ListData)
             {
-                if(obj.Date == date)
+                if(obj.StartDate == date)
                 {
                     temp += obj.Amount;
                 }
@@ -76,7 +76,7 @@ namespace ConsoleApp45
             float CurrentBalanceDupe = CurrentBalance;
             foreach(Data obj in ListData)
             {
-                if(obj.Date < date)
+                if(obj.StartDate <= date)
                 {
                     CurrentBalanceDupe -= obj.Amount;
                 }
@@ -109,7 +109,7 @@ namespace ConsoleApp45
             foreach (ProjectedTransaction obj in ProjectedTransaction) {
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
-                    Data TempData = new Data(obj2, obj.Amount);
+                    Data TempData = new Data(obj2, obj.Amount, obj.Name);
                     ListData.Add(TempData);
                 }
             }
@@ -117,12 +117,12 @@ namespace ConsoleApp45
             {
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
-                    Data TempData = new Data(obj2, -(obj.Amount));
+                    Data TempData = new Data(obj2, -(obj.Amount), obj.Name);
                     ListData.Add(TempData);
                 }
             }
             //ListData.OrderBy(x => x.Date).ToList();
-            ListData.Sort((x, y) => x.Date.CompareTo(y.Date));
+            ListData.Sort((x, y) => x.StartDate.CompareTo(y.StartDate));
         }
 
         public DateTime GetNextPayDay()
@@ -131,7 +131,7 @@ namespace ConsoleApp45
             {
                 if(obj.Amount < 0)
                 {
-                    return obj.Date;
+                    return obj.StartDate;
                 }
             }
             return new DateTime();
@@ -155,7 +155,7 @@ namespace ConsoleApp45
                 DupeCurrent -= obj.Amount;
                 if(DupeCurrent <= MinimumBalance)
                 {
-                    Console.WriteLine($"{obj.Date} is the date when user hits minimum balance: {Math.Round((obj.Date - DateTime.Now).TotalDays)} Days left");
+                    Console.WriteLine($"{obj.StartDate} is the date when user hits minimum balance: {Math.Round((obj.StartDate - DateTime.Now).TotalDays)} Days left");
                     hitsMinBalance = true;
                     break;
                 }
@@ -167,55 +167,118 @@ namespace ConsoleApp45
             }
         }
 
-        public float CalculateDaysToEscape()
+        public float CalculateMinimumBalance()
         {
-            float DupeCurrent = CurrentBalance;
-            DateTime LastDate = DateTime.Now ;
-            bool hitsMinBalance = false;
-            DateTime HitDateTemp = DateTime.Now;
+            
+            DateTime StartDate = DateTime.Now.Date;
+            DateTime TempDate = new DateTime(1,1,1);
+            float TempBalance = GetBalanceOnDate(StartDate);
+
+            float MinBalance = TempBalance;
+            Console.WriteLine("\n\n");
             foreach (Data obj in ListData)
             {
-                    if(LastDate != obj.Date)
+                if(StartDate <= obj.StartDate && TempDate!=obj.StartDate)
+                {
+                    TempDate = obj.StartDate;
+                    TempBalance -= GetTotalOn(obj.StartDate);
+                    if(MinBalance > TempBalance)
                     {
-                    DupeCurrent -= GetTotalOn(obj.Date);
-                    LastDate = obj.Date;
+                        MinBalance = TempBalance;
+                    }
+                    if(TempBalance <= MinimumBalance)
+                    {
+                        Console.WriteLine($"User hits minimum balance : {TempBalance} on {obj.StartDate.ToShortDateString()}");
                     }
                     
-                    if (DupeCurrent <= MinimumBalance)
-                    {
-                        HitDateTemp = obj.Date;
-                        hitsMinBalance = true;
-                        break;
-                    }
-                
-            }
-            if (!hitsMinBalance)
-            {
-                Console.WriteLine($"User never hits minimum balance, he is a rich bitch!");
-                return 0;
-            }
-            else
-            {
-                float DupeCurrentTemp = DupeCurrent;
-
-                foreach (Data obj in ListData)
-                {
-                    if (obj.Date > HitDateTemp && DupeCurrent <= MinimumBalance)
-                    {
-                        DupeCurrent -= obj.Amount;
-                        if (DupeCurrent < DupeCurrentTemp)
-                        {
-                            DupeCurrentTemp = DupeCurrent;
-                        }
-                    }
-                    else if (DupeCurrent > MinimumBalance)
-                    {
-                        break;
-                    }
                 }
-                return DupeCurrentTemp;
             }
+
+            return MinBalance;
         }
+
+        public float CalculateMinimumBalance(float AddToCurrentBalance)
+        {
+
+            DateTime StartDate = DateTime.Now.Date;
+            DateTime TempDate = new DateTime(1, 1, 1);
+            float TempBalance = GetBalanceOnDate(StartDate) + AddToCurrentBalance;
+            bool HitsMinimumBalance = false;
+            float MinBalance = TempBalance;
+            foreach (Data obj in ListData)
+            {
+                if (StartDate <= obj.StartDate && TempDate != obj.StartDate)
+                {
+                    
+                    TempDate = obj.StartDate;
+                    TempBalance -= GetTotalOn(obj.StartDate);
+                    if (MinBalance > TempBalance)
+                    {
+                        MinBalance = TempBalance;
+                    }
+                    if (TempBalance <= MinimumBalance)
+                    {
+                        Console.WriteLine($"User hits minimum balance : {TempBalance} on {obj.StartDate.ToShortDateString()}");
+                        HitsMinimumBalance = true;
+                    }
+                    
+                }
+            }
+
+
+            return MinBalance;
+        }
+
+        //public float CalculateDaysToEscape()
+        //{
+        //    float DupeCurrent = CurrentBalance;
+        //    DateTime LastDate = DateTime.Now ;
+        //    bool hitsMinBalance = false;
+        //    DateTime HitDateTemp = DateTime.Now;
+        //    foreach (Data obj in ListData)
+        //    {
+        //            if(LastDate != obj.StartDate)
+        //            {
+        //            DupeCurrent -= GetTotalOn(obj.StartDate);
+        //            LastDate = obj.StartDate;
+        //            }
+                    
+        //            if (DupeCurrent <= MinimumBalance)
+        //            {
+        //                HitDateTemp = obj.StartDate;
+        //                hitsMinBalance = true;
+        //                break;
+        //            }
+                    
+        //    }
+        //    if (!hitsMinBalance)
+        //    {
+        //        Console.WriteLine($"User never hits minimum balance, he is a rich bitch!");
+        //        return 0;
+        //    }
+        //    else
+        //    {
+        //        float DupeCurrentTemp = DupeCurrent;
+
+        //        foreach (Data obj in ListData)
+        //        {
+        //            if (obj.StartDate > HitDateTemp && DupeCurrent <= MinimumBalance)
+        //            {
+        //                DupeCurrent -= obj.Amount;
+        //                if (DupeCurrent < DupeCurrentTemp)
+        //                {
+        //                    DupeCurrentTemp = DupeCurrent;
+        //                }
+        //            }
+        //            else if (DupeCurrent > MinimumBalance)
+        //            {
+        //                Console.WriteLine($"{obj.StartDate}");
+        //                break;
+        //            }
+        //        }
+        //        return DupeCurrentTemp;
+        //    }
+        //}
 
 
         public void AddCategory(string category)

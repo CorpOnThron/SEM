@@ -8,7 +8,6 @@ namespace ConsoleApp45
 {
     public class Frequency
     {
-        
         Repeat Repeat;
         DateTime StartDate;
         int EveryXOccurance;

@@ -21,6 +21,14 @@ namespace ConsoleApp45
         }
     }
 
+    public class Data: Transaction
+    {
+        public Data(DateTime date, float amount, string name): base(name, amount, date)
+        {
+
+        }
+    }
+
     public class ProjectedTransaction : Transaction
     {
         public string Category;
