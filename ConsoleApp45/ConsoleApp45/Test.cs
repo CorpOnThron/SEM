@@ -110,7 +110,7 @@ namespace ConsoleApp45
             Console.WriteLine($"{OlekDev.GetBalanceOnDate(new DateTime(2018, 8, 31))} will be the balance");
             Console.WriteLine($"before adding : {OlekDev.CalculateMinimumBalance()}");
             Console.WriteLine("\n\nAmount");
-            float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance();
+            float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance().Amount;
             Console.WriteLine("\n\nResult");
             Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount+1)}");
         }

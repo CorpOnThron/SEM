@@ -167,13 +167,13 @@ namespace ConsoleApp45
             }
         }
 
-        public float CalculateMinimumBalance()
+        public Data CalculateMinimumBalance()
         {
             
             DateTime StartDate = DateTime.Now.Date;
             DateTime TempDate = new DateTime(1,1,1);
             float TempBalance = GetBalanceOnDate(StartDate);
-
+            Data MinBalanceObj = new Data(new DateTime(1, 1, 1), TempBalance,"");
             float MinBalance = TempBalance;
             Console.WriteLine("\n\n");
             foreach (Data obj in ListData)
@@ -184,7 +184,8 @@ namespace ConsoleApp45
                     TempBalance -= GetTotalOn(obj.StartDate);
                     if(MinBalance > TempBalance)
                     {
-                        MinBalance = TempBalance;
+                        MinBalanceObj.Amount = TempBalance;
+                        MinBalanceObj.StartDate = obj.StartDate;
                     }
                     if(TempBalance <= MinimumBalance)
                     {
@@ -194,7 +195,7 @@ namespace ConsoleApp45
                 }
             }
 
-            return MinBalance;
+            return MinBalanceObj;
         }
 
         public float CalculateMinimumBalance(float AddToCurrentBalance)
