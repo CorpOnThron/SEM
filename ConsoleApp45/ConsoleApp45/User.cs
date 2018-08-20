@@ -109,7 +109,7 @@ namespace ConsoleApp45
             foreach (ProjectedTransaction obj in ProjectedTransaction) {
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
-                    Data TempData = new Data(obj2, obj.Amount, obj.Name);
+                    Data TempData = new Data(obj2, obj.Amount, obj.Name, obj.Priority);
                     ListData.Add(TempData);
                 }
             }
@@ -117,7 +117,7 @@ namespace ConsoleApp45
             {
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
-                    Data TempData = new Data(obj2, -(obj.Amount), obj.Name);
+                    Data TempData = new Data(obj2, -(obj.Amount), obj.Name, Priority.High);
                     ListData.Add(TempData);
                 }
             }
@@ -393,6 +393,21 @@ namespace ConsoleApp45
                 }
             }
             return Result;
+        }
+        //This function must display a list of transactions to delete to reach minimum balance.
+        //Require help funcation to sync with real ListData<>
+        public List<Data> PriorityListSort(Data obj)
+        {
+            List<Data> PriorityList = new List<Data>();
+            foreach (Data obj1 in ListData) {
+                if (obj1.StartDate <= obj.StartDate)
+                {
+                    PriorityList.Add(obj1);
+                }
+            }
+            PriorityList.Sort((x, y) => x.Priority.CompareTo(y.Priority));
+
+            return PriorityList;
         }
     }
 }

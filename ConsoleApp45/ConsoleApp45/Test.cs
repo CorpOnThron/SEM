@@ -113,6 +113,12 @@ namespace ConsoleApp45
             float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance().Amount;
             Console.WriteLine("\n\nResult");
             Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount+1)}");
+
+            foreach (Data obj in OlekDev.PriorityListSort(OlekDev.CalculateMinimumBalance()))
+            {
+                Console.WriteLine($"{obj.StartDate.ToShortDateString()} and {obj.Amount} and {obj.Priority} ");
+            }
+            Console.WriteLine();
         }
     }
 }
