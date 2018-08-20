@@ -112,7 +112,7 @@ namespace ConsoleApp45
             Console.WriteLine("\n\nAmount");
             float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance();
             Console.WriteLine("\n\nResult");
-            Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount)}");
+            Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount+1)}");
         }
     }
 }
