@@ -119,9 +119,14 @@ namespace ConsoleApp45
             //    Console.WriteLine($"{obj.StartDate.ToShortDateString()} and {obj.Amount} and {obj.Priority} ");
             //}
             //Console.WriteLine();
-            Data objShit = new Data(DateTime.Now.AddDays(14),1000);
-            int shit = OlekDev.CalculatePossibility(objShit);
-            Console.WriteLine(shit);
+
+            //Data objShit = new Data(DateTime.Now.AddDays(14),1000);
+            //int shit = OlekDev.CalculatePossibility(objShit);
+            //Console.WriteLine(shit);
+
+            Data objShit = new Data(DateTime.Now, 1000);
+            Data objShit2 = new Data(DateTime.Now.AddDays(7), 1000);
+            Console.WriteLine((objShit+objShit2).Amount + " and "+ (objShit + objShit2).StartDate);
         }
     }
 }

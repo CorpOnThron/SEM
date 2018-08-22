@@ -21,13 +21,19 @@ namespace ConsoleApp45
         }
     }
 
-    public class Data: Transaction
+    public class Data : Transaction
     {
         public Priority Priority;
 
-        public Data(DateTime date, float amount, string name ="", Priority priority = Priority.None): base(name, amount, date)
+        public Data(DateTime date, float amount, string name = "", Priority priority = Priority.None) : base(name, amount, date)
         {
             Priority = priority;
+        }
+
+        public static Data operator +(Data obj1, Data obj2)
+        {
+            Data Result = new Data((obj1.StartDate > obj2.StartDate ? obj1.StartDate:obj2.StartDate),(obj1.Amount + obj1.Amount));
+            return Result;
         }
     }
 
