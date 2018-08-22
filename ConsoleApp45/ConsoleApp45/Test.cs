@@ -51,7 +51,7 @@ namespace ConsoleApp45
             //float tempShit = OlekDev.CalculateDaysToEscape();
             //Console.WriteLine($"Min balance will be {tempShit}");
 
-            
+
 
             //OlekDev.DisplayActualTransactions();
 
@@ -107,18 +107,21 @@ namespace ConsoleApp45
             //foreach (DateTime dt in result11)
             //    Console.WriteLine($"{dt.ToLongDateString()} : every Jan, feb, oct every 2 years");
 
-            Console.WriteLine($"{OlekDev.GetBalanceOnDate(new DateTime(2018, 8, 31))} will be the balance");
-            Console.WriteLine($"before adding : {OlekDev.CalculateMinimumBalance()}");
-            Console.WriteLine("\n\nAmount");
-            float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance().Amount;
-            Console.WriteLine("\n\nResult");
-            Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount+1)}");
+            //Console.WriteLine($"{OlekDev.GetBalanceOnDate(new DateTime(2018, 8, 31))} will be the balance");
+            //Console.WriteLine($"before adding : {OlekDev.CalculateMinimumBalance()}");
+            //Console.WriteLine("\n\nAmount");
+            //float amount = OlekDev.MinimumBalance - OlekDev.CalculateMinimumBalance().Amount;
+            //Console.WriteLine("\n\nResult");
+            //Console.WriteLine($"after adding : {OlekDev.CalculateMinimumBalance(amount+1)}");
 
-            foreach (Data obj in OlekDev.PriorityListSort(OlekDev.CalculateMinimumBalance()))
-            {
-                Console.WriteLine($"{obj.StartDate.ToShortDateString()} and {obj.Amount} and {obj.Priority} ");
-            }
-            Console.WriteLine();
+            //foreach (Data obj in OlekDev.PriorityListSort(OlekDev.CalculateMinimumBalance()))
+            //{
+            //    Console.WriteLine($"{obj.StartDate.ToShortDateString()} and {obj.Amount} and {obj.Priority} ");
+            //}
+            //Console.WriteLine();
+            Data objShit = new Data(DateTime.Now.AddDays(14),1000);
+            int shit = OlekDev.CalculatePossibility(objShit);
+            Console.WriteLine(shit);
         }
     }
 }

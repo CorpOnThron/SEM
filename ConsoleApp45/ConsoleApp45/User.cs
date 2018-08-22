@@ -409,5 +409,75 @@ namespace ConsoleApp45
 
             return PriorityList;
         }
+
+        public int CalculatePossibility(Data obj)
+        {
+            float sum = 0;
+
+            foreach (Data obj1 in ListData)
+            {
+                
+                if (obj1.StartDate >= DateTime.Now && obj1.StartDate <= obj.StartDate && obj1.Amount < 0)
+                {
+                    float AmountTemp = (obj1.Amount * (-1));
+                    sum += AmountTemp; 
+                }
+            }
+
+            if (sum > obj.Amount)
+            {
+                return 1;
+            }
+            else {
+
+
+                foreach (Data obj1 in ListData)
+                {
+                    if (obj1.StartDate >= DateTime.Now && obj1.StartDate <= obj.StartDate && obj1.Priority == Priority.None)
+                    {
+                        float AmountTemp = obj1.Amount;
+                        sum += AmountTemp;
+                    }
+                }
+                if (sum > obj.Amount)
+                {
+                    return 2;
+                }
+                else {
+
+                    foreach (Data obj1 in ListData)
+                    {
+                        if (obj1.StartDate >= DateTime.Now && obj1.StartDate <= obj.StartDate && obj1.Priority == Priority.Low)
+                        {
+                            float AmountTemp = obj1.Amount;
+                            sum += AmountTemp;
+                        }
+                    }
+                    if (sum > obj.Amount)
+                    {
+                        return 3;
+                    }
+                    else
+                    {
+                        foreach (Data obj1 in ListData)
+                        {
+                            if (obj1.StartDate >= DateTime.Now && obj1.StartDate <= obj.StartDate && obj1.Priority == Priority.Medium)
+                            {
+                                float AmountTemp = obj1.Amount;
+                                sum += AmountTemp;
+                            }
+                        }
+                        if (sum > obj.Amount)
+                        {
+                            return 4;
+                        }
+                        else {
+                            return 5;
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }
