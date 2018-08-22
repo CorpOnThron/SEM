@@ -479,5 +479,20 @@ namespace ConsoleApp45
             }
 
         }
+        public float CalculateSavingsCurrentMonth(List<Data> DataList)
+        {
+            Data result = new Data(DateTime.Now,0);
+            foreach (Data obj in DataList)
+            {
+                result += obj;
+
+            }
+
+            int TempDate = (int)(result.StartDate - DateTime.Now).TotalDays;
+            int TempDate2 = (int)(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) - DateTime.Now).TotalDays;
+            float SavingsRequired = result.Amount / TempDate;
+
+            return TempDate2 * SavingsRequired;
+        }
     }
 }
