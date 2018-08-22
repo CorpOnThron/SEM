@@ -194,6 +194,10 @@ namespace ConsoleApp45
                     
                 }
             }
+            while(CalculateMinimumBalance(MinBalanceObj.Amount) < MinimumBalance)
+            {
+                MinBalanceObj.Amount += CalculateMinimumBalance(MinBalanceObj.Amount);
+            }
 
             return MinBalanceObj;
         }
@@ -204,7 +208,6 @@ namespace ConsoleApp45
             DateTime StartDate = DateTime.Now.Date;
             DateTime TempDate = new DateTime(1, 1, 1);
             float TempBalance = GetBalanceOnDate(StartDate) + AddToCurrentBalance;
-            bool HitsMinimumBalance = false;
             float MinBalance = TempBalance;
             foreach (Data obj in ListData)
             {
@@ -220,7 +223,7 @@ namespace ConsoleApp45
                     if (TempBalance <= MinimumBalance)
                     {
                         Console.WriteLine($"User hits minimum balance : {TempBalance} on {obj.StartDate.ToShortDateString()}");
-                        HitsMinimumBalance = true;
+                        
                     }
                     
                 }
@@ -479,14 +482,9 @@ namespace ConsoleApp45
             }
 
         }
-        public float CalculateSavingsCurrentMonth(List<Data> DataList)
+        public float CalculateSavingsCurrentMonth(Data DataList)
         {
-            Data result = new Data(DateTime.Now,0);
-            foreach (Data obj in DataList)
-            {
-                result += obj;
-
-            }
+            Data result = DataList;
 
             int TempDate = (int)(result.StartDate - DateTime.Now).TotalDays;
             int TempDate2 = (int)(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) - DateTime.Now).TotalDays;

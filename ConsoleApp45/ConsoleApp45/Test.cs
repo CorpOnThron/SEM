@@ -127,6 +127,9 @@ namespace ConsoleApp45
             Data objShit = new Data(DateTime.Now, 1000);
             Data objShit2 = new Data(DateTime.Now.AddDays(7), 1000);
             Console.WriteLine((objShit+objShit2).Amount + " and "+ (objShit + objShit2).StartDate);
+
+
+            Console.WriteLine($"savings for this month : ${OlekDev.CalculateSavingsCurrentMonth(OlekDev.CalculateMinimumBalance())}");
         }
     }
 }
