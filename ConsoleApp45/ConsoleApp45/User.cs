@@ -19,6 +19,7 @@ namespace ConsoleApp45
         public List<Data> ListData;
         public List<WishItem> WishList;
 
+        ///<summary>CONSTRUCTOR</summary>
         public User(float minimumBalance, float currentBalance, DateTime budgetEndDate)
         {
             MinimumBalance = minimumBalance;
@@ -31,7 +32,9 @@ namespace ConsoleApp45
             ActualTransaction = new List<ActualTransaction>();
             WishList = new List<WishItem>();
         }
-
+        ///<summary>
+        ///Returns the total amount that user will spend/earn on the date specified. Positive value suggests that the amount is spent. Negative amount tells that the user earned on that date.
+        ///</summary>
         public float GetTotalOn(DateTime date)
         {
             float temp = 0;
@@ -45,25 +48,31 @@ namespace ConsoleApp45
             return temp;
         }
 
+
+        ///<summary>Adds the wish to the user's wishlist</summary>
         public void AddWishItem(WishItem wish) {
             WishList.Add(wish);
         }
 
+        ///<summary>Adds income source to the user's income</summary>
         public void AddIncome(Income income)
         {
             Income.Add(income);
         }
 
+        ///<summary>Adds a transaction plan to the user's projection of transactions</summary>
         public void AddProjectedTransaction(ProjectedTransaction projectedTransaction)
         {
             ProjectedTransaction.Add(projectedTransaction);
         }
 
+        ///<summary>Converts the projected transaction to the user's list of actual transactions. The function must be called when the date on the projected transaction has passed the today's date.</summary>
         public void AddActualTransaction(ProjectedTransaction projectedTransaction)
         {
             ActualTransaction.Add(new ActualTransaction(projectedTransaction, DateTime.Now));
         }
 
+        ///<summary>Converts the projected transaction to the user's list of actual transactions with an altered amount spent by the user. The function must be called when the date on the projected transaction has passed the today's date.</summary>
         public void AddActualTransaction(ProjectedTransaction projectedTransaction, float amount)
         {
             ProjectedTransaction tempPT = projectedTransaction;
@@ -71,6 +80,11 @@ namespace ConsoleApp45
             ActualTransaction.Add(new ActualTransaction(tempPT, DateTime.Now));
         }
 
+        /// <summary>
+        /// Returns the user's current balance on the date specified.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns> Returns the user's current balance on the date specified.</returns>
         public float GetBalanceOnDate(DateTime date)
         {
             float CurrentBalanceDupe = CurrentBalance;
@@ -85,27 +99,47 @@ namespace ConsoleApp45
             return CurrentBalanceDupe;
         }
 
+        /// <summary>
+        /// Adds the income object and today's date to the list of actual transactions.
+        /// </summary>
+        /// <param name="income"></param>
         public void AddActualTransaction(Income income)
         {
             ActualTransaction.Add(new ActualTransaction(income,DateTime.Now));
         }
 
+        /// <summary>
+        /// Used to adjust the minimum balance that the user plans to have in his/her budget period.
+        /// </summary>
+        /// <param name="newBalance"></param>
         public void UpdateMinimumBalance(float newBalance)
         {
             MinimumBalance = newBalance;
         }
 
+        /// <summary>
+        /// Used to adjust the user's current blance.
+        /// </summary>
+        /// <param name="newBalance"></param>
         public void UpdateCurrentBalance (float newBalance)
         {
             CurrentBalance = newBalance;
         }
 
+        /// <summary>
+        /// To change the date till which the user wants the application to handle the budget for him/her.
+        /// </summary>
+        /// <param name="newDate"></param>
         public void UpdateBudgetDate(DateTime newDate)
         {
             BudgetEndDate = newDate;
         }
 
+        /// <summary>
+        /// Adds all the occurences of ProjectedTransactions and Income to List of Data. It also sorts every occurence by date in ascending order.
+        /// </summary>
         public void AddData() {
+            
             foreach (ProjectedTransaction obj in ProjectedTransaction) {
                 foreach(DateTime obj2 in obj.Frequency.GetNextDates(obj.EndDate))
                 {
@@ -125,6 +159,10 @@ namespace ConsoleApp45
             ListData.Sort((x, y) => x.StartDate.CompareTo(y.StartDate));
         }
 
+        /// <summary>
+        /// Returns the date when the user will next get his/her pay. Will always be in future only IF THE DATA CLASS DOESN'T HAVE ANY TRANSACTIONS THAT ARE BEFORE TODAY.
+        /// </summary>
+        /// <returns></returns>
         public DateTime GetNextPayDay()
         {
             foreach(Data obj in ListData)
@@ -137,6 +175,26 @@ namespace ConsoleApp45
             return new DateTime();
         }
 
+        /// <summary>
+        /// Returns the date when the user will next get his/her pay after the date specified. Will always be in future only IF THE DATA CLASS DOESN'T HAVE ANY TRANSACTIONS THAT ARE BEFORE TODAY and THE DATE SPECIFIED IS NOT IN PAST.
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetNextPayDay(DateTime Date)
+        {
+            foreach (Data obj in ListData)
+            {
+                if (obj.Amount < 0 && Date >= DateTime.Now.Date)
+                {
+                    return obj.StartDate;
+                }
+            }
+            return new DateTime();
+        }
+
+        /// <summary>
+        /// Returns a list of all transactions that have occured till now.
+        /// </summary>
+        /// <returns></returns>
         public List<ActualTransaction> DisplayActualTransactions()
         {
             foreach(ActualTransaction obj in ActualTransaction)
@@ -146,6 +204,9 @@ namespace ConsoleApp45
             return ActualTransaction;
         }
 
+        /// <summary>
+        /// Displays on console if the user ever hits the minimum balance. If he/she does, then it will display the date on which he hits the balance, and the balance. Along with the days left to hit the minimum balance.
+        /// </summary>
         public void CalculateDaysLeft()
         {
             float DupeCurrent = CurrentBalance;
@@ -167,6 +228,11 @@ namespace ConsoleApp45
             }
         }
 
+
+        /// <summary>
+        /// Returns the date and amount that will represent the all-time minimum balance that the user will hit during his/her budget period.
+        /// </summary>
+        /// <returns></returns>
         public Data CalculateMinimumBalance()
         {
             
@@ -202,6 +268,12 @@ namespace ConsoleApp45
             return MinBalanceObj;
         }
 
+
+        /// <summary>
+        /// Returns the date and amount that will represent the all-time minimum balance that the user will hit during his/her budget period after adding the AddToCurrentBalance to the current balance of the user.
+        /// </summary>
+        /// <param name="AddToCurrentBalance">Adjustments made to the user's current balance to check the new minimum balance</param>
+        /// <returns></returns>
         public float CalculateMinimumBalance(float AddToCurrentBalance)
         {
 
@@ -284,12 +356,20 @@ namespace ConsoleApp45
         //    }
         //}
 
-
+        /// <summary>
+        /// Adds a category to user's category list.
+        /// </summary>
+        /// <param name="category"></param>
         public void AddCategory(string category)
         {
             Category.Add(category);
         }
 
+        /// <summary>
+        /// Gets a list of transactions on the specified date.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<ProjectedTransaction> GetTransactionsOn(DateTime date)
         {
             List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
@@ -317,6 +397,12 @@ namespace ConsoleApp45
             return Result;
         }
 
+        /// <summary>
+        /// Gets a list of transactions starting from the specified date. And for the next few days starting from the start date.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="RangeOfDays"></param>
+        /// <returns></returns>
         public List<ProjectedTransaction> GetTransactionsOn(DateTime date, int RangeOfDays)
         {
             List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
@@ -344,6 +430,14 @@ namespace ConsoleApp45
             return Result;
         }
 
+
+        /// <summary>
+        /// Gets a list of transactions starting from the specified date. And for the next few days starting from the start date. Which meet a certain priority.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="RangeOfDays"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
         public List<ProjectedTransaction> GetTransactionsOn(DateTime date, int RangeOfDays, Priority priority)
         {
             List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
@@ -371,6 +465,12 @@ namespace ConsoleApp45
             return Result;
         }
 
+        /// <summary>
+        /// Gets a list of transactions starting from the specified date and having a certain priority.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
         public List<ProjectedTransaction> GetTransactionsOn(DateTime date, Priority priority)
         {
             List<ProjectedTransaction> Result = new List<ProjectedTransaction>();
@@ -397,6 +497,7 @@ namespace ConsoleApp45
             }
             return Result;
         }
+
         //This function must display a list of transactions to delete to reach minimum balance.
         //Require help funcation to sync with real ListData<>
         public List<Data> PriorityListSort(Data obj)
@@ -413,6 +514,15 @@ namespace ConsoleApp45
             return PriorityList;
         }
 
+        /// <summary>
+        /// returns 1: Income is enough for the user to meet his/her budget.<para />
+        /// returns 2: Income is required along with avoiding None priority transactions to meet the budget.<para />
+        /// returns 3: Income is required along with avoiding None and low priority transactions to meet the budget.<para />
+        /// returns 4: Income is required along with making only High priority transactions to meet the budget.<para />
+        /// returns 5: Impossible budget.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public int CalculatePossibility(Data obj)
         {
             float sum = 0;
@@ -482,6 +592,12 @@ namespace ConsoleApp45
             }
 
         }
+
+        /// <summary>
+        /// returns the amount the user needs to save for current month.
+        /// </summary>
+        /// <param name="DataList"></param>
+        /// <returns></returns>
         public float CalculateSavingsCurrentMonth(Data DataList)
         {
             Data result = DataList;
