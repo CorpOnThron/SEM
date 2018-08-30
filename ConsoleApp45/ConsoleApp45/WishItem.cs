@@ -8,9 +8,9 @@ namespace ConsoleApp45
 {
     class WishItem
     {
-        string Name;
-        float Amount;
-        Priority Prior;
+        public string Name;
+        public float Amount;
+        public Priority Prior;
 
         public WishItem(string name, float amount, Priority prior = Priority.None) {
 

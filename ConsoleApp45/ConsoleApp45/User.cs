@@ -608,5 +608,30 @@ namespace ConsoleApp45
 
             return TempDate2 * SavingsRequired;
         }
+        /// <summary>
+        /// function that return time appropriate to buy a wish list item
+        /// </summary>
+        /// <param name="UserTemp"></param>
+        /// <returns></returns>
+        public DateTime TimeToGetWish(User UserTemp)// takes user that we will search time to buy wish list for
+        {
+            Data MinDrop = UserTemp.CalculateMinimumBalance();//find the max drop
+            DateTime DateTemp = MinDrop.StartDate;//first day to start coubt from
+            DateTime DateTempFinal = new DateTime();//assigning it to avoid mistake
+            UserTemp.WishList.Sort((x, y) => x.Prior.CompareTo(y.Prior));//we sort list of wishes to make it detect wich wish must be done first
+
+            for (; DateTemp < UserTemp.BudgetEndDate; DateTemp.AddDays(1))//for loop. Hope i made it right
+            {
+                    float BalanceTemp = GetBalanceOnDate(DateTemp);//we search a balance in each day after max drop
+                    if ((BalanceTemp - UserTemp.WishList[0].Amount) > UserTemp.MinimumBalance)//check if today balance - wish item > minimum balance of user
+                    {
+                        DateTempFinal = DateTemp;
+                        Console.WriteLine($"{DateTemp} is right day to buy {UserTemp.WishList[0]}");// here is a time!
+                    }
+            }
+
+
+            return DateTempFinal;
+        }
     }
 }
